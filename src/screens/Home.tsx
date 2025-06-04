@@ -37,7 +37,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleReserve = (court: { name: string; image: any }) => {
-    navigation.navigate('Reservations', {
+    navigation.navigate('SportInfo', {
       name: court.name,
       image: Image.resolveAssetSource(court.image).uri,
     });

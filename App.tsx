@@ -8,6 +8,7 @@ import { RootStackParamList } from './src/navigation/types';
 import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import Register from './src/screens/Register';
+import SportInfo from './src/screens/SportInfo'; 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="SportInfo" component={SportInfo} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

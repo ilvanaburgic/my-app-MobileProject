@@ -25,7 +25,7 @@ type RegisterScreenNavigationProp = NativeStackNavigationProp<
   'Register'
 >;
 
-const API_BASE_URL = 'http://localhost:3000/api'; // adjust as needed
+const API_BASE_URL = 'http://localhost:3000/api'; 
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();

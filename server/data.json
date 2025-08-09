@@ -1,0 +1,18 @@
+{
+  "sports": [
+    { "id": "padel", "name": "Padel" },
+    { "id": "volleyball", "name": "Volleyball" },
+    { "id": "futsal", "name": "Futsal" },
+    { "id": "basketball", "name": "Basketball" }
+  ],
+  "pricing": [
+    { "sport": "padel", "pricePerHour": 30 },
+    { "sport": "volleyball", "pricePerHour": 20 },
+    { "sport": "futsal", "pricePerHour": 25 },
+    { "sport": "basketball", "pricePerHour": 22 }
+  ],
+  "users": [
+    { "id": 1, "name": "Test User", "email": "test@sportin.app", "password": "123456" }
+  ],
+  "reservations": []
+}

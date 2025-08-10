@@ -5,20 +5,17 @@ import { useAuth } from '../context/AuthContext';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 
-const images: Record<string, any> = {
-  padel: require('../../assets/Padel_court.jpg'),
-  volleyball: require('../../assets/Volleyball_court.jpg'),
-  futsal: require('../../assets/Futsal_court.jpg'),
-  basketball: require('../../assets/Basketball_court.webp'),
-};
+const PLACEHOLDER = require('../../assets/Padel_court.jpg');
 
 export default function HomeScreen({ navigation }: any) {
   const [sports, setSports] = useState<{ id: string; name: string; imageUrl?: string }[]>([]);
+  const [failed, setFailed] = useState<Record<string, boolean>>({});
   const { user } = useAuth();
 
   const load = async () => {
     const r = await api.get('/sports');
     setSports(r.data);
+    setFailed({});
   };
 
   useEffect(() => {
@@ -48,9 +45,8 @@ export default function HomeScreen({ navigation }: any) {
   };
 
   const renderImage = (item: { id: string; imageUrl?: string }) => {
-    if (item.imageUrl) return { uri: item.imageUrl };
-    if (images[item.id]) return images[item.id];
-    return require('../../assets/Padel_court.jpg');
+    if (!failed[item.id] && item.imageUrl) return { uri: item.imageUrl };
+    return PLACEHOLDER;
   };
 
   return (
@@ -72,7 +68,14 @@ export default function HomeScreen({ navigation }: any) {
         ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={renderImage(item)} style={styles.img} resizeMode="cover" />
+            <Image
+              source={renderImage(item)}
+              style={styles.img}
+              resizeMode="cover"
+              defaultSource={PLACEHOLDER}
+              onError={() => setFailed(f => ({ ...f, [item.id]: true }))}
+            />
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={{ fontWeight: '700' }}>{item.name} court</Text>
 
@@ -80,7 +83,7 @@ export default function HomeScreen({ navigation }: any) {
                 <Pressable style={styles.reserve} onPress={() => navigation.navigate('SportInfo', { sport: item.id })}>
                   <Text style={{ color: 'white', fontWeight: '700' }}>Reserve</Text>
                 </Pressable>
-                
+
                 {user?.role === 'admin' && (
                   <Pressable
                     style={styles.edit}

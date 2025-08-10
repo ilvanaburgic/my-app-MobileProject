@@ -43,7 +43,6 @@ export default function HomeScreen({ navigation }: any) {
     ]);
   };
 
-
   useEffect(() => {
     if (isFocused) {
       api.get('/sports').then(r => setSports(r.data));

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet, Image, Alert } from 'react-native';
 import api from '../api/client';
-import { useIsFocused } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const images: Record<string, any> = {
   padel: require('../../assets/Padel_court.jpg'),
@@ -14,9 +14,7 @@ const images: Record<string, any> = {
 
 export default function HomeScreen({ navigation }: any) {
   const [sports, setSports] = useState<{ id: string; name: string; imageUrl?: string }[]>([]);
-  const isFocused = useIsFocused();
   const { user } = useAuth();
-
 
   const load = async () => {
     const r = await api.get('/sports');
@@ -24,8 +22,14 @@ export default function HomeScreen({ navigation }: any) {
   };
 
   useEffect(() => {
-    if (isFocused) load();
-  }, [isFocused]);
+    load();
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [])
+  );
 
   const onDelete = (id: string) => {
     Alert.alert('Delete sport', 'Are you sure?', [
@@ -42,12 +46,6 @@ export default function HomeScreen({ navigation }: any) {
       },
     ]);
   };
-
-  useEffect(() => {
-    if (isFocused) {
-      api.get('/sports').then(r => setSports(r.data));
-    }
-  }, [isFocused]);
 
   const renderImage = (item: { id: string; imageUrl?: string }) => {
     if (item.imageUrl) return { uri: item.imageUrl };

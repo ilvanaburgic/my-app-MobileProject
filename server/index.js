@@ -18,6 +18,14 @@ app.get('/sports', (req, res) => {
   res.json(readDB().sports);
 });
 
+app.get('/sports/:id', (req, res) => {
+  const { id } = req.params;
+  const db = readDB();
+  const sport = db.sports.find(s => s.id === id);
+  if (!sport) return res.status(404).json({ error: 'Not found' });
+  res.json(sport);
+});
+
 // CREATE sport
 app.post('/sports', (req, res) => {
   const { name, imageUrl } = req.body;

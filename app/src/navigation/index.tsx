@@ -13,6 +13,7 @@ import PricingScreen from '../screens/PricingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AdminScreen from '../screens/AdminScreen';
 import AddSportScreen from '../screens/AddSportScreen';
+import EditSportScreen from '../screens/EditSportScreen';
 
 import { useAuth } from '../context/AuthContext';
 
@@ -52,6 +53,7 @@ function AppStack() {
       <Stack.Screen name="SportInfo" component={SportInfoScreen} options={{ headerTitle: 'SportIn' }} />
       <Stack.Screen name="Admin" component={AdminScreen} options={{ headerTitle: 'Admin' }} />
       <Stack.Screen name="AddSport" component={AddSportScreen} /> 
+      <Stack.Screen name="EditSport" component={EditSportScreen} options={{ headerTitle: 'SportIn' }} />
     </Stack.Navigator>
   );
 }
@@ -76,6 +78,7 @@ export default function RootNavigator() {
             <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
             <Stack.Screen name="SportInfo" component={SportInfoScreen} />
             <Stack.Screen name="AddSport" component={AddSportScreen} options={{ title: 'Add sport' }} />
+            <Stack.Screen name="EditSport" component={EditSportScreen} options={{ title: 'Edit sport' }} />
             <Stack.Screen name="Admin" component={AdminScreen} />
           </>
         ) : (

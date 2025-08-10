@@ -80,6 +80,21 @@ export default function HomeScreen({ navigation }: any) {
                 <Pressable style={styles.reserve} onPress={() => navigation.navigate('SportInfo', { sport: item.id })}>
                   <Text style={{ color: 'white', fontWeight: '700' }}>Reserve</Text>
                 </Pressable>
+                
+                {user?.role === 'admin' && (
+                  <Pressable
+                    style={styles.edit}
+                    onPress={() =>
+                      navigation.getParent()?.navigate('EditSport', {
+                        id: item.id,
+                        name: item.name,
+                        imageUrl: item.imageUrl || '',
+                      })
+                    }
+                  >
+                    <Text style={{ color: 'white', fontWeight: '700' }}>Edit</Text>
+                  </Pressable>
+                )}
 
                 {user?.role === 'admin' && (
                   <Pressable style={styles.delete} onPress={() => onDelete(item.id)}>
@@ -106,4 +121,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 20,
   },
+  edit: { backgroundColor: '#f59e0b', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 20 },
 });

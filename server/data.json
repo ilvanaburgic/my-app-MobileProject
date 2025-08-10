@@ -2,7 +2,8 @@
   "sports": [
     {
       "id": "padel",
-      "name": "Padel"
+      "name": "Padel1",
+      "imageUrl": "https://arturf.com/wp-content/uploads/2023/09/Red-TurfBlack-Frame-Padel-Court.jpg"
     },
     {
       "id": "volleyball",
@@ -118,6 +119,13 @@
       "email": "sdfg",
       "password": "sdfg",
       "role": "user"
+    },
+    {
+      "id": 110,
+      "name": "New User",
+      "email": "sdfgdfg",
+      "password": "sdfg",
+      "role": "user"
     }
   ],
   "reservations": [
@@ -216,6 +224,14 @@
       "date": "2025-10-22",
       "time": "19:00",
       "createdAt": "2025-08-09T15:58:18.064Z"
+    },
+    {
+      "id": 13,
+      "userId": 110,
+      "sport": "basketball",
+      "date": "2025-08-10",
+      "time": "13:00",
+      "createdAt": "2025-08-10T14:53:17.986Z"
     }
   ]
 }

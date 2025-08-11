@@ -121,6 +121,13 @@ app.post('/auth/login', (req, res) => {
 app.post('/auth/register', (req, res) => {
   const { name, email, password } = req.body;
   const db = readDB();
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+
   if (db.users.some(u => u.email === email)) return res.status(409).json({ error: 'Email already exists' });
   const id = db.users.length ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
   const user = { id, name, email, password, role: 'user' };

@@ -129,6 +129,13 @@
       "email": "sdfgdfg",
       "password": "sdfg",
       "role": "user"
+    },
+    {
+      "id": 111,
+      "name": "New User",
+      "email": "Sdfgh",
+      "password": "sdfgh",
+      "role": "user"
     }
   ],
   "reservations": [

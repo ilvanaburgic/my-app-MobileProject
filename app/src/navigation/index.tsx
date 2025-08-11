@@ -58,15 +58,6 @@ function AppStack() {
   );
 }
 
-function AuthStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} options={{ headerTitle: 'SportIn' }} />
-      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerTitle: 'SportIn' }} />
-    </Stack.Navigator>
-  );
-}
-
 export default function RootNavigator() {
   const { user } = useAuth();
 

@@ -11,13 +11,34 @@ export default function RegisterScreen({ navigation }: any) {
   const [password, setPassword] = useState('');
 
   const onSignup = async () => {
+    //Email form
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name.trim()) {
+      Toast.show({ type: 'error', text1: 'Name is required' });
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid email',
+        text2: 'Please enter a valid email like name@example.com'
+      });
+      return;
+    }
+    if (password.length < 6) {
+      Toast.show({ type: 'error', text1: 'Weak password', text2: 'Use at least 6 characters' });
+      return;
+    }
+
     try {
-      await register(name, email, password);
+      await register(name, email.trim(), password);
       navigation.replace('Main');
     } catch (e: any) {
       Toast.show({ type: 'error', text1: 'Signup failed', text2: e?.response?.data?.error || 'Try again' });
     }
   };
+
 
   return (
     <View style={styles.container}>

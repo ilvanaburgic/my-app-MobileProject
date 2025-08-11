@@ -46,17 +46,6 @@ function MainTabs() {
   );
 }
 
-function AppStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="SportInfo" component={SportInfoScreen} options={{ headerTitle: 'SportIn' }} />
-      <Stack.Screen name="Admin" component={AdminScreen} options={{ headerTitle: 'Admin' }} />
-      <Stack.Screen name="AddSport" component={AddSportScreen} /> 
-      <Stack.Screen name="EditSport" component={EditSportScreen} options={{ headerTitle: 'SportIn' }} />
-    </Stack.Navigator>
-  );
-}
 
 export default function RootNavigator() {
   const { user } = useAuth();

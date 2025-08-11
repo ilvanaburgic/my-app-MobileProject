@@ -23,11 +23,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null);
 
   useEffect(() => {
+    // On cold start, do not restore the user from AsyncStorage
     (async () => {
-      const raw = await AsyncStorage.getItem('user');
-      if (raw) setUser(JSON.parse(raw));
+      await AsyncStorage.removeItem('user'); // Clear any existing session to ensure the app starts at Login
+      setUser(null);
     })();
   }, []);
+
 
   const login = async (email: string, password: string) => {
     const { data } = await api.post('/auth/login', { email, password });

@@ -6,8 +6,8 @@ import { useAuth } from '../../context/AuthContext';
 
 export default function LoginScreen({ navigation }: any) {
   const { login } = useAuth();
-  const [email, setEmail] = useState('test@sportin.app');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const onLogin = async () => {
     //Email form

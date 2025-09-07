@@ -57,10 +57,13 @@ export default function RootNavigator() {
           <>
             <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
             <Stack.Screen name="SportInfo" component={SportInfoScreen} />
-            <Stack.Screen name="AddSport" component={AddSportScreen} options={{ title: 'Add sport' }} />
-            <Stack.Screen name="EditSport" component={EditSportScreen} options={{ title: 'Edit sport' }} />
+
             {user?.role === 'admin' && (
-              <Stack.Screen name="Admin" component={AdminScreen} />
+              <>
+                <Stack.Screen name="AddSport" component={AddSportScreen} options={{ title: 'Add sport' }}/>
+                <Stack.Screen name="EditSport" component={EditSportScreen} options={{ title: 'Edit sport' }}/>
+                <Stack.Screen name="Admin" component={AdminScreen} />
+              </>
             )}
           </>
         ) : (

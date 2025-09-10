@@ -136,6 +136,20 @@
       "email": "Sdfgh",
       "password": "sdfgh",
       "role": "user"
+    },
+    {
+      "id": 112,
+      "name": "Nana",
+      "email": "Ilvana@gmail.com",
+      "password": "1234Ilvana",
+      "role": "user"
+    },
+    {
+      "id": 113,
+      "name": "Ghj",
+      "email": "dfghjk@gmail.com",
+      "password": "1234567",
+      "role": "user"
     }
   ],
   "reservations": [

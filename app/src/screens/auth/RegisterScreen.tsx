@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export default function RegisterScreen({ navigation }: any) {
   const { register } = useAuth();
-  const [name, setName] = useState('New User');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -39,15 +39,40 @@ export default function RegisterScreen({ navigation }: any) {
     }
   };
 
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CREATE ACCOUNT</Text>
-      <TextInput value={name} onChangeText={setName} placeholder="Name" style={styles.input} />
-      <TextInput value={email} onChangeText={setEmail} placeholder="Email" style={styles.input} />
-      <TextInput value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry style={styles.input} />
-      <Button title="Signup" onPress={onSignup} style={{ marginTop: 8, width: '100%' }} />
-      <Text style={{ marginTop: 10 }}>Already have account? <Text onPress={() => navigation.navigate('Login')} style={{ fontWeight: '700' }}>Login</Text></Text>
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        placeholder="Name"
+        style={styles.input}
+      />
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Email"
+        style={styles.input}
+      />
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Password"
+        secureTextEntry
+        style={styles.input}
+      />
+      <Button
+        title="Signup"
+        onPress={onSignup}
+        style={
+          {
+            marginTop: 8,
+            width: '100%'
+          }
+        }
+      />
+      <Text style={{ marginTop: 10 }}>Already have account?
+        <Text onPress={() => navigation.navigate('Login')} style={{ fontWeight: '700' }}>Login</Text></Text>
       <Toast />
     </View>
   );

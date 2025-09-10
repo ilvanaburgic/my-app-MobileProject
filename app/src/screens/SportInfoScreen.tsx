@@ -4,8 +4,8 @@ import { Calendar } from 'react-native-calendars';
 import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-toast-message';
+import { HOURS } from '../utils/date';
 
-const HOURS = Array.from({ length: 15 }, (_, i) => `${String(9 + i).padStart(2, '0')}:00`);
 
 type Slot = { time: string; available: boolean };
 

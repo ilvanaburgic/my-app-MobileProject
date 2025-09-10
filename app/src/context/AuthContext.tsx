@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../api/client';
 
+// Type definition for the user object used across the application
 export type User = {
   id: number;
   name: string;
@@ -9,6 +10,7 @@ export type User = {
   role?: 'user' | 'admin';
 } | null;
 
+// Interface that defines all functions and data available through AuthContext
 interface AuthCtx {
   user: User;
   login: (email: string, password: string) => Promise<void>;
@@ -17,6 +19,7 @@ interface AuthCtx {
   updateUser: (patch: Partial<{ name: string; email: string }>) => Promise<void>;
 }
 
+// Creating a React context for authentication
 const Ctx = createContext<AuthCtx | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -29,7 +32,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
     })();
   }, []);
-
 
   const login = async (email: string, password: string) => {
     const { data } = await api.post('/auth/login', { email, password });
@@ -56,12 +58,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
+    // Ctx.Provider makes the user object and auth functions available to all child components
     <Ctx.Provider value={{ user, login, register, logout, updateUser }}>
       {children}
     </Ctx.Provider>
   );
 }
 
+// Custom React hook that simplifies the usage of AuthContext
 export const useAuth = () => {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error('useAuth must be used within AuthProvider');

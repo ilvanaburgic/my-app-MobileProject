@@ -21,6 +21,9 @@ const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function MainTabs() {
+  const { user } = useAuth();
+  const HomeComponent = user?.role === 'admin' ? AdminScreen : HomeScreen;
+
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -38,7 +41,7 @@ function MainTabs() {
         tabBarShowLabel: true,
       })}
     >
-      <Tabs.Screen name="Home" component={HomeScreen} />
+      <Tabs.Screen name="Home" component={HomeComponent} />
       <Tabs.Screen name="History" component={HistoryScreen} />
       <Tabs.Screen name="Pricing" component={PricingScreen} />
       <Tabs.Screen name="Profile" component={ProfileScreen} />
@@ -62,7 +65,6 @@ export default function RootNavigator() {
               <>
                 <Stack.Screen name="AddSport" component={AddSportScreen} options={{ title: 'Add sport' }}/>
                 <Stack.Screen name="EditSport" component={EditSportScreen} options={{ title: 'Edit sport' }}/>
-                <Stack.Screen name="Admin" component={AdminScreen} />
               </>
             )}
           </>

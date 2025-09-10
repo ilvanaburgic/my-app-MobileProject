@@ -14,8 +14,7 @@ export default function HistoryScreen() {
     setRows(r.data);
   }, [user]);
 
-  useFocusEffect(useCallback(() => { load(); }, [load]));
-
+  
   useFocusEffect(
   useCallback(() => {
     console.log('History user =', user); 

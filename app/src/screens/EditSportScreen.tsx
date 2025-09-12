@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  StyleSheet,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Alert, ActivityIndicator, } from 'react-native';
 import api from '../api/client';
 
 type RouteParams = {
@@ -72,18 +64,7 @@ export default function EditSportScreen({ route, navigation }: any) {
         data: err?.response?.data,
         message: err?.message,
       });
-
-      let msg = 'Error saving.';
-      if (err?.response) {
-        const d = err.response.data;
-        msg = d?.message || d?.error || (typeof d === 'string' ? d : `HTTP ${err.response.status}`);
-        if (err.response.status === 404) msg = 'The sport with the given ID does not exist.';
-      } else if (err?.request) {
-        msg = 'Network error: The server is not available.';
-      } else if (err?.message) {
-        msg = err.message;
-      }
-      Alert.alert('Not saved', msg);
+      Alert.alert('Not saved');
     } finally {
       setSaving(false);
     }
@@ -91,7 +72,6 @@ export default function EditSportScreen({ route, navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>SportIn</Text>
 
       {loading ? (
         <View style={{ marginTop: 24 }}>
@@ -104,7 +84,7 @@ export default function EditSportScreen({ route, navigation }: any) {
             value={name}
             onChangeText={setName}
             style={styles.input}
-            placeholder="npr. Padel"
+            placeholder="eg. Padel"
             autoCapitalize="words"
             returnKeyType="next"
           />
@@ -135,7 +115,6 @@ export default function EditSportScreen({ route, navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: '#fff' },
-  header: { fontSize: 18, fontWeight: '700', textAlign: 'center', marginBottom: 12 },
   label: { fontWeight: '700', marginTop: 12 },
   input: {
     borderWidth: 1,

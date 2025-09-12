@@ -13,7 +13,6 @@ export default function AdminScreen({ navigation }: any) {
 
   const load = async () => {
     const r = await api.get('/sports');
-    console.log('SPORTS->', r.data);
     setSports(r.data);
     setFailed({});
   };
@@ -86,9 +85,6 @@ export default function AdminScreen({ navigation }: any) {
       />
     </View>
   );
-
-
-
 }
 
 const styles = StyleSheet.create({

@@ -9,15 +9,18 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const DB_PATH = resolve(process.cwd(), 'data.json');
-const HOURS = Array.from({ length: 15 }, (_, i) => `${String(9 + i).padStart(2, '0')}:00`);
+const HOURS = ['09:00', '10:00', '11:00', '12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'];
+
 
 const readDB = () => JSON.parse(readFileSync(DB_PATH, 'utf8'));
 const writeDB = (db) => writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
 
-app.get('/sports', (req, res) => {
+//List sports on home screen and admin screen
+app.get('/sports', (_req, res) => {
   res.json(readDB().sports);
 });
 
+// Details sport - Sport info screen
 app.get('/sports/:id', (req, res) => {
   const { id } = req.params;
   const db = readDB();
@@ -26,7 +29,7 @@ app.get('/sports/:id', (req, res) => {
   res.json(sport);
 });
 
-// CREATE sport
+// CREATE sport - AddSportScreen
 app.post('/sports', (req, res) => {
   const { name, imageUrl } = req.body;
   if (!name) return res.status(400).json({ error: 'name required' });
@@ -42,7 +45,7 @@ app.post('/sports', (req, res) => {
   res.status(201).json(sport);
 });
 
-// UPDATE sport
+// UPDATE sport - EditSportScreen
 app.put('/sports/:id', (req, res) => {
   const { id } = req.params;
   const { name, imageUrl } = req.body;
@@ -55,7 +58,7 @@ app.put('/sports/:id', (req, res) => {
   res.json(s);
 });
 
-// DELETE sport
+// DELETE sport - Admin screen
 app.delete('/sports/:id', (req, res) => {
   const { id } = req.params;
   const db = readDB();
@@ -65,12 +68,7 @@ app.delete('/sports/:id', (req, res) => {
   res.json({ deleted: before - db.sports.length });
 });
 
-// Pricing (read-only)
-app.get('/pricing', (req, res) => {
-  res.json(readDB().pricing);
-});
-
-// Availability (by sport/date)
+// Availability (by sport/date) - SportInfoScreen
 app.get('/availability', (req, res) => {
   const { sport, date } = req.query; // date: YYYY-MM-DD
   const db = readDB();
@@ -79,13 +77,14 @@ app.get('/availability', (req, res) => {
   res.json({ date, sport, slots });
 });
 
-// reservations
+// GET /reservations — HistoryScreen
 app.get('/reservations', (req, res) => {
   const { userId } = req.query;
   const all = readDB().reservations;
   res.json(userId ? all.filter(r => r.userId === Number(userId)) : all);
 });
 
+// POST /reservations — SportInfoScreen create reservations
 app.post('/reservations', (req, res) => {
   const { userId, sport, date, time } = req.body;
   const db = readDB();
@@ -98,6 +97,7 @@ app.post('/reservations', (req, res) => {
   res.status(201).json(resv);
 });
 
+// DELETE /reservations/:id — HistoryScreen cancel reservation
 app.delete('/reservations/:id', (req, res) => {
   const id = Number(req.params.id);
   const db = readDB();
@@ -136,7 +136,7 @@ app.post('/auth/register', (req, res) => {
   res.status(201).json({ user: { id, name, email, role: 'user' } });
 });
 
-// Users (update profile)
+// Users (update profile) - ProfileScreen
 app.patch('/users/:id', (req, res) => {
   const id = Number(req.params.id);
   const { name, email } = req.body;

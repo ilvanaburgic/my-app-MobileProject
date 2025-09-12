@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import api from '../api/client';
 
 export default function PricingScreen() {
-  const [rows, setRows] = useState<{ sport: string; pricePerHour: number }[]>([]);
-  useEffect(() => { api.get('/pricing').then(r => setRows(r.data)); }, []);
+  const rows = [
+    { sport: 'padel',      pricePerHour: 30 },
+    { sport: 'volleyball', pricePerHour: 20 },
+    { sport: 'futsal',     pricePerHour: 25 },
+    { sport: 'basketball', pricePerHour: 30 },
+  ];
 
   return (
     <View style={{ flex: 1, padding: 16 }}>

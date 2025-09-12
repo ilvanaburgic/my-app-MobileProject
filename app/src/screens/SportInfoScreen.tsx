@@ -4,7 +4,6 @@ import { Calendar } from 'react-native-calendars';
 import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-toast-message';
-import { HOURS } from '../utils/date';
 
 
 type Slot = { time: string; available: boolean };
@@ -36,7 +35,7 @@ export default function SportInfoScreen({ route, navigation }: any) {
     try {
       await api.post('/reservations', { userId: user.id, sport, date, time: selectedTime });
       Toast.show({ type: 'success', text1: 'Reservation confirmed', text2: `${date} — ${selectedTime}` });
-      navigation.getParent()?.navigate('History');
+      navigation.navigate('Main', { screen: 'History' });
     } catch (e: any) {
       Alert.alert('Error', e?.response?.data?.error || 'Try again');
     } finally {
@@ -52,19 +51,20 @@ export default function SportInfoScreen({ route, navigation }: any) {
         </Text>
         <Calendar
           onDayPress={(d) => setDate(d.dateString)}
-          markedDates={{ [date]: { selected: true } }}
-          theme={{
-            selectedDayBackgroundColor: '#6b5cc6',
-            arrowColor: '#6b5cc6',
-            todayTextColor: '#6b5cc6',
+          markedDates={{
+            [date]: {
+              selected: true,
+              selectedColor: '#ff3b30',
+              selectedTextColor: '#ffffff',
+            },
           }}
         />
       </View>
 
-      <View style={{ flex: 1, padding: 16 }}>
+      <View style={{ padding: 16 }}>
         <Text style={{ fontWeight: '700', marginBottom: 8 }}>Available time slots</Text>
         <FlatList
-          data={slots.length ? slots : HOURS.map(h => ({ time: h, available: false }))}
+          data={slots}
           keyExtractor={(i) => i.time}
           numColumns={3}
           columnWrapperStyle={{ gap: 8, marginBottom: 8 }}
@@ -86,9 +86,8 @@ export default function SportInfoScreen({ route, navigation }: any) {
               </Pressable>
             );
           }}
-          ListEmptyComponent={<Text>No slots.</Text>}
         />
-
+        
         <Pressable
           onPress={confirm}
           disabled={!selectedTime}

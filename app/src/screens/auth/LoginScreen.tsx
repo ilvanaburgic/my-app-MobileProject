@@ -10,36 +10,21 @@ export default function LoginScreen({ navigation }: any) {
   const [password, setPassword] = useState('');
 
   const onLogin = async () => {
-    //Email form
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email.trim())) {
-      Toast.show({
-        type: 'error',
-        text1: 'Invalid email',
-        text2: 'Please enter a valid email like name@example.com'
-      });
-      return;
-    }
-    if (password.length < 6) {
-      Toast.show({
-        type: 'error',
-        text1: 'Wrong password',
-        text2: 'Use at least 6 characters'
-      });
-      return;
-    }
-
     try {
       await login(email.trim(), password);
       navigation.replace('Main');
     } catch (e: any) {
-      Toast.show({ type: 'error', text1: 'Login failed', text2: e?.response?.data?.error || 'Try again' });
+      Toast.show({
+        type: 'error',
+        text1: 'Login failed',
+        text2: e?.response?.data?.error || 'Try again'
+      });
     }
   };
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValid = emailRegex.test(email.trim()) && password.length >= 6;
+
 
   return (
     <View style={styles.container}>
